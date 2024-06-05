@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>RIVILLAS DANIEL</title>
+  <link rel="icon" href="https://www.zarla.com/images/zarla-y-1x1-2400x2400-20211124-q9j4pd9kv8387vhckddk.png"
+    type="image/x-icon">
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+    /* Couleur de la poignée */
+    ::-webkit-scrollbar-thumb {
+      background-color: #011626;
+      border-radius: 10px;
+    }
+
+    /* Couleur du fond */
+    ::-webkit-scrollbar-track {
+      background-color: #3193d3;
+      border-radius: 10px;
+    }
+
+    /* Largeur de la barre de défilement */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Espace entre la barre de défilement et le contenu */
+    ::-webkit-scrollbar {
+      scrollbar-gutter: 10px;
+    }
+
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #ffffff;
+      background-color: rgb(5, 100, 189);
+      height: 99.8vh;
+    }
+
+    header {
+      background-color: #4a4a4a;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    #row {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-top: 0rem;
+      height: 100%;
+    }
+
+
+
+    .treeviewparent {
+      background: linear-gradient(to bottom, #131921, #131921, #00306200);
+
+      background-size: 100% auto;
+      background-position: bottom center;
+      background-repeat: no-repeat;
+      padding: 1rem;
+      height: 100%;
+
+    }
+
+    #col1 {
+      flex: 0 0 400px;
+      background-color: #01122c;
+      background-image: url('side.png');
+      background-size: 100% auto;
+      background-position: bottom center;
+      background-repeat: no-repeat;
+
+
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      overflow-y: auto;
+      transition: all 0.3s ease;
+      position: -webkit-sticky;
+
+      top: 8rem;
+    }
+
+    #col2 {
+      flex: 1;
+
+
+
+    }
+
+
+
+
+
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border-width: 0px;
+    }
+
+    .collapsed {
+      display: none;
+    }
+
+    .toggle-btn {
+      position: absolute;
+
+      top: 10px;
+      left: 15px;
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      background: linear-gradient(to bottom, #3193d3, #259be9, #23a8ff);
+
+
+      border: none;
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 16px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+      font-size: 40px;
+
+    }
+
+    .toggle-btn:hover {
+
+      background: linear-gradient(to bottom, #3193d3, #259be9, #23a8ff);
+    }
+
+    .collapsee {
+      position: absolute;
+
+      top: 10px;
+      left: 410px;
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      background: linear-gradient(to bottom, #3193d3, #259be9, #23a8ff);
+      border: none;
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 16px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+      font-size: 40px;
+    }
+
+    .treeview ul {
+      list-style: none;
+    }
+
+    .treeview label,
+    a {
+      text-decoration: none;
+      color: azure;
+      display: block;
+      padding: 0.5rem 0;
+
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #ul1 label {
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+    }
+
+
+    .treeview input {
+      display: none;
+    }
+
+    .content {
+      display: none;
+      padding-left: 1rem;
+    }
+
+    .treeview input:checked~.content {
+      display: block;
+    }
+
+    .sousEl {
+      padding-left: 1rem;
+    }
+
+    .sousEl a {
+      display: block;
+      text-decoration: none;
+      color: rgb(197, 197, 197);
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+    }
+
+    label:hover,
+    a:hover,
+    .sousEl a.active {
+      color: rgb(140, 209, 221);
+      background-color: #4a4a4a;
+      padding-left: 0.5rem;
+    }
+
+    a.active {
+      color: #3ac7cc;
+      background-color: #707070;
+      padding-left: 0.5rem;
+    }
+
+    .draggable {
+      cursor: pointer;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    #arrow {
+
+      position: fixed;
+      top: 150px;
+      left: 120px;
+      animation: apparait-disparait 2s infinite;
+      transform: rotate(230deg);
+
+      width: 400px;
+      height: 115px;
+
+
+    }
+
+    #arrowdiv {
+      animation: fadeOut 1s linear 4s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+
+    @keyframes apparait-disparait {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+
+    @media (max-width: 985px) {
+      li {
+        padding-bottom: 40px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="row">
+    <div id="arrowdiv"> <img id="arrow" src="arrow.png"> </div>
+    <button id="toggle-btn" class="toggle-btn draggable"> 〈 〉</button>
+    <div id="col1" class="tree">
+
+      <div class="treeviewparent">
+        <div class="treeview">
+          <ul id="ul1">
+
+
+
+            <!-- ----  Lien utiles  ---- -->
+
+
+            <!-- moi -->
+
+
+
+
+
+            <li>
+              <div style="display: flex;">
+                <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; "> <img
+                    style="width: 30px; height: 30px; " src="network.png"> </div>
+                <div style="flex: 1;">
+                  <label for="fil" style=" font-size: 1.5em;"> Réseaux</label>
+                  <input type="checkbox" id="fil" />
+                  <div class="content">
+
+                    <ul class="el">
+
+                      <!-- Switchs -->
+                      <li>
+                        <label for="vlanvtp"> Switchs</label>
+                        <input type="checkbox" id="vlanvtp" />
+                        <div class="content">
+                          <ul class="sousEl">
+
+                            <li id="file"><a class="name" href="#" data-src="https://www.clemanet.com/switch-cisco.php">
+                                1ere première connexion -> routage inter-Vlan </a>
+                            </li>
+
+
+
+                            <li>
+                              <p> ____________ </p>
+                            </li>
+
+                            <li id="file"><a class="name" href="#" data-src="Réseaux/Spannig.html">
+
+                                Spannig Tree/etherchannel </a>
+
+                            </li>
+
+
+                            <li id="file"><a class="name" href="#" data-src="Réseaux/password.html">
+
+                                Récup mot de passse switch </a>
+
+                            </li>
+
+
+
+                            <li id="file"><a class="name" href="#" data-src="Réseaux/sticky1.html">
+
+                                configuration de sécurité de port Cisco </a>
+
+                            </li>
+
+
+
+
+
+
+                          </ul>
+                        </div>
+
+                      </li>
+
+                      <!-- Routeur cisco  -->
+                      <li>
+                        <label for="rcisco">Routeurs</label>
+                        <input type="checkbox" id="rcisco" />
+                        <div class="content">
+                          <ul class="sousEl">
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\routeur cisco\password.html">
+                                Password router cisco</a>
+                            </li>
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\routeur cisco\ssh.html">
+                                SSH</a>
+                            </li>
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\routeur cisco\acl.html">
+                                ACL</a>
+                            </li>
+                            <li id="file"><a class="name" href="#" data-src="Réseaux/HSRP.html">
+
+                                HSRP : redondance des routeurs </a>
+
+                            </li>
+
+                            <p>______________________________________</p>
+
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\routeur cisco\rip.html">
+                                RIP v2</a>
+                            </li>
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\routeur cisco\ospf.html">
+                                OSPF</a>
+                            </li>
+
+                            <p>______________________________________</p>
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\vpn\gre.html">
+                                Configuration de GRE</a>
+                            </li>
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\vpn\gre-sitetosite.html">
+                                GRE site to site</a>
+                            </li>
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\vpn\ipsec.html">
+                                IPsec</a>
+                            </li>
+
+
+                            <p style="padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-top: 0px; ">
+                              _________</p>
+
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\vpn\greoveripsec-map.html">
+                                GRE Over IPsec (map) </a>
+                            </li>
+                            <li id="file">
+                              <a class="name" href="#" data-src="Réseaux\vpn\greoveripsec-profile.html">
+                                GRE Over IPsec (profile ✓ ) </a>
+                            </li>
+
+
+                            <p>______________________________________</p>
+
+                          </ul>
+                        </div>
+                      </li>
+
+
+
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- Windows -->
+            <li>
+              <div style="display: flex;">
+                <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; "> <img
+                    style="width: 30px; height: 30px; " src="windows.png"> </div>
+                <div style="flex: 1;">
+                  <label for="file1" style=" font-size: 1.5em; ">Windows</label>
+                  <input type="checkbox" id="file1" />
+                  <div class="content">
+                    <ul class="el">
+
+
+
+                      <!-- Text a ajouter -->
+
+
+
+                    </ul>
+
+                  </div>
+
+                </div>
+              </div>
+            </li>
+
+            <!-- Linux -->
+            <li>
+              <div style="display: flex;">
+                <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; "> <img
+                    style="width: 30px; height: 30px; " src="linux.png"> </div>
+                <div style="flex: 1;">
+                  <label for="file2" style="font-size: 1.5em;">Linux</label>
+                  <input type="checkbox" id="file2" />
+                  <div class="content">
+                    <ul class="el">
+
+
+                      <li id="file">
+                        <a data-src="main.html"
+                          onclick="window.open('https://upload.wikimedia.org/wikipedia/commons/a/ad/2023_Linux_Distributions_Timeline.svg', '_blank', 'width=1400,height=900')">
+                          DISTRIB</a>
+                      </li>
+
+
+
+
+                      <li id="file">
+                        <label for="cli"> Commandes utiles </label>
+                        <input type="checkbox" id="cli" />
+                        <div class="content">
+                          <ul class="sousEl">
+                            <li><a class="name" href="#" data-src="Linux/searchcmd/step1.html">
+                                Démarrer</a></li>
+                            <li><a class="name" href="#" data-src="Linux/40commandes.html">
+                                Alinux et les 40 commandes</a></li>
+                            <li><a class="name" href="#" data-src="Linux/searchcmd/searchcmd.html">
+                                Commandes de recherches</a></li>
+
+                          </ul>
+                        </div>
+                      </li>
+
+
+
+
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    </li>
+
+    <!-- cybersecurity -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <li>
+      <div style="display: flex;">
+        <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; "> <img style="width: 30px; height: 30px; "
+            src="secu.png"> </div>
+        <div style="flex: 1;">
+          <label for="secu" style=" font-size: 1.5em;">Sécurité </label>
+          <input type="checkbox" id="secu" />
+          <div class="content">
+
+            <ul>
+
+              <li>
+                <div style="display: flex;">
+                  <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; "> <img
+                      style="width: 30px; height: 30px; " src="hack.png"> </div>
+                  <div style="flex: 1;">
+                    <label for="secuhack" style=" font-size: 1.5em;">Sécurité HACK</label>
+                    <input type="checkbox" id="secuhack" />
+                    <div class="content">
+
+
+
+                      <ul class="el">
+
+                        <li>
+                          <a class="name" href="#" style="color: #d96c6c;" data-src="test.html">
+                            IMPORTANT </a>
+                        </li>
+
+                        <a>_____________</a>
+
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/2.1-ReconPassive.pdf">
+                            Recon Passive
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/2.2-GoogleHackWEB.pdf">
+                            2.2-GoogleHackWEB
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#"
+                            data-src="secu/ANIS/3.1.0 Configuration de la sécurité du commutateur.pdf">
+                            3.1.0 Switch's confg sec
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/3.1-ScanCouche2.pdf">
+                            3.1 Scan Couche2
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/3-2-ScanCouche3.pdf">
+                            3-2 Scan Couche3
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/3-3-ScanPort.pdf">
+                            3-3 Scan Port
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/3-4-PriseDempreinte.pdf">
+                            3-4 Prise d'empreinte
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/Doxing.txt">
+                            Doxing ;)
+                          </a>
+                        </li>
+
+                        <a>______________________________________</a>
+
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/mailextractor.html">
+                            Mail extractor
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/paquets.txt">
+                            Paquets
+                          </a>
+                        </li>
+
+                        <a>______________________________________</a>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/1-Nmap Scripting Engine.pdf">
+                            1- Nmap Scripting Engine
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#"
+                            data-src="secu/ANIS/2-Utilisation de la base de données dans Metasploitv1.pdf">
+                            2-1 Use DB in metasploit
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#"
+                            data-src="secu/ANIS/2-Utilisation de la base de données dans Metasploit.pdf">
+                            2-2 Use DB in metasploit 2
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/3-Vol d_identifiant Windows via Responder.pdf">
+                            3- Vol ID via Responder
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/4-Attaque DoS.pdf">
+                            4-1 Attaque DoS
+                          </a>
+                        </li>
+
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/4-Attaque DoS.pdf">
+                            4-1 Attaque DoS
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/Exploit windows msfvenom Final v3.pdf">
+                            Exploit windows msfvenom Final v3
+                          </a>
+                        </li>
+
+                        <a>______________________________________</a>
+                        <li>
+                          <a class="name" href="#" data-src="secu/ANIS/log.html">
+                            Windows log
+                          </a>
+                        </li>
+
+                        <a>______________________________________</a>
+
+
+                        <li>
+                          <a class="name" href="#" style="color: #008000;" data-src="acro.html">
+                            Plan de sécurité
+                          </a>
+                        </li>
+
+
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <li>
+                <div style="display: flex;">
+                  <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; "> <img
+                      style="width: 30px; height: 30px; " src="secuhard.png"> </div>
+                  <div style="flex: 1;">
+                    <label for="secuhard" style=" font-size: 1.5em;">Sécurité HARD</label>
+                    <input type="checkbox" id="secuhard" />
+                    <div class="content">
+
+
+                      <ul class="el">
+                        <li>
+                          <a class="name" href="#" data-src="secu/base.html">
+                            Base
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/durcissement.pdf">
+                            Durcissement
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="secu/wifi.html">
+                            Attaques wifi (2015)
+                          </a>
+                        </li>
+                        <a> ________________</a>
+                        <li>
+
+
+                        <li>
+                          <a class="name" href="#" data-src="secu/Watchguard/Watchguard.html">
+                            Watchguard : VPN SSL
+                          </a>
+                        </li>
+                        <a> ________________</a>
+                        <li>
+
+                          <a class="name" href="#" data-src="secu/ssh.html">
+                            PfSense SSH
+                          </a>
+                        </li>
+
+                        <li>
+                          <a class="name" href="#" data-src="secu/openvpn.html">
+                            OpenVPN
+                          </a>
+                        </li>
+
+                        <li>
+                          <a class="name" href="#" data-src="secu/pfsense.html">
+                            PfSense redondants (failover)
+                          </a>
+                        </li>
+
+                        <a> ________________</a>
+                        <li>
+                          <a class="name" href="#"
+                            data-src="https://news.sophos.com/fr-fr/2020/10/27/vnp-acces-distance-simple-et-rapide-avec-sophos-connect-v2/">
+                            Sophos xg - VPN SSL
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#"
+                            data-src="https://doc.sophos.com/nsg/sophos-firewall/18.5/help/en-us/webhelp/onlinehelp/AdministratorHelp/VPN/RemoteAccessVPN/VPNIPsecSophosConnectClient/index.html#configure-a-locally-signed-certificate">
+                            Sophos xg - VPN IPsec
+                          </a>
+                        </li>
+                        <a> ________________</a>
+
+
+
+
+
+
+
+                        <li>
+                          <a class="name" href="#" data-src="secu/sns.pdf">
+                            STORMSHIELD NETWORK SECURITY
+                          </a>
+                        </li>
+
+                        <a> ________________</a>
+
+                        <li>
+                          <a class="name" href="#" data-src="https://all-it-network.com/fortinet-vpn-ssl/">
+                            Fortinet VPN SSL
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="https://all-it-network.com/fortinet-vpn-ipsec/">
+                            Fortinet VPN IPsec
+                          </a>
+                        </li>
+                        <li>
+                          <a class="name" href="#" data-src="https://network-knowledge.work/fortigate-ha/">
+                            FortiGate HA
+                          </a>
+                        </li>
+
+
+
+
+
+
+
+
+
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </li>
+
+
+    
+    
+    
+    
+    <li>
+      <div style="display: flex;">
+          <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; "> <img
+                  style="width: 30px; height: 30px; " src="cloud.png"> </div>
+          <div style="flex: 1;">
+              <label for="cloud" style=" font-size: 1.5em;">Cloud</label>
+              <input type="checkbox" id="cloud" />
+              <div class="content">
+
+                  <ul class="el">
+
+
+
+                    <li>
+                      <div style="display: flex;">
+                          <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; ">
+                              <img style="width: 30px; height: 30px; " src="vmware.png">
+                          </div>
+                          <div style="flex: 1;">
+                              <label for="vmware" style=" font-size: 1.5em;">VMware</label>
+                              <input type="checkbox" id="vmware" />
+                              <div class="content">
+
+                                  <ul class="el">
+
+                                      <li>
+                                          <a class="name" href="#"
+                                              data-src="cloud/AZ-900 TrainerHandbook.pdf">
+                                              AZ-900
+                                          </a>
+                                      </li>
+
+                                      <li>
+                                          <a class="name" href="#" data-src="cloud/Fundamentals-01.pdf">
+                                              Fundamentals 1
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a class="name" href="#" data-src="cloud/Fundamentals-02.pdf">
+                                              Fundamentals 2
+                                          </a>
+                                      </li>
+                                      <a>_____________________ </a>
+
+                                      <li>
+                                          <a class="name" href="#" data-src="cloud/ps1.html">
+                                              Powershell : Script Création VMs en boucle
+                                          </a>
+                                      </li>
+
+
+
+
+
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+
+
+
+                      <li>
+                          <div style="display: flex;">
+                              <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; ">
+                                  <img style="width: 30px; height: 30px; " src="azure.png">
+                              </div>
+                              <div style="flex: 1;">
+                                  <label for="azure" style=" font-size: 1.5em;">Azure</label>
+                                  <input type="checkbox" id="azure" />
+                                  <div class="content">
+
+                                      <ul class="el">
+
+                                          <li>
+                                              <a class="name" href="#"
+                                                  data-src="cloud/AZ-900 TrainerHandbook.pdf">
+                                                  AZ-900
+                                              </a>
+                                          </li>
+
+                                          <li>
+                                              <a class="name" href="#" data-src="cloud/Fundamentals-01.pdf">
+                                                  Fundamentals 1
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a class="name" href="#" data-src="cloud/Fundamentals-02.pdf">
+                                                  Fundamentals 2
+                                              </a>
+                                          </li>
+                                          <a>_____________________ </a>
+
+                                          <li>
+                                              <a class="name" href="#" data-src="cloud/ps1.html">
+                                                  Powershell : Script Création VMs en boucle
+                                              </a>
+                                          </li>
+
+
+
+
+
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+
+                      <li>
+                          <div style="display: flex;">
+                              <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; ">
+                                  <img style="width: 30px; height: 30px; " src="aws.jpg">
+                              </div>
+                              <div style="flex: 1;">
+                                  <label for="aws" style=" font-size: 1.5em;">AWS</label>
+                                  <input type="checkbox" id="aws" />
+                                  <div class="content">
+
+                                      <ul class="el">
+                                          <li>
+                                              <a class="name" href="#" data-src="cloud/AWS.html">
+                                                  AWS Amazon Web Services
+                                              </a>
+                                          </li>
+
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+
+                      <li>
+                          <div style="display: flex;">
+                              <div style="flex: 0 0 20px; margin-top: 23px; margin-right:10px; ">
+                                  <img style="width: 27.3px; height: 30px; " src="365.png">
+                              </div>
+                              <div style="flex: 1;">
+                                  <label for="365" style=" font-size: 1.5em;">Microsoft
+                                      365</label>
+                                  <input type="checkbox" id="365" />
+                                  <div class="content">
+
+                                      <ul class="el">
+                                          <li>
+                                              <a class="name" href="#" data-src="https://m365maps.com">
+                                                  Microsoft 365 Licensing
+                                              </a>
+                                          </li>
+
+                                          <li>
+                                              <a class="name" href="#" data-src="cloud/de365.html">
+                                                  TP 365
+                                              </a>
+                                          </li>
+
+
+
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+
+
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </li>
+
+
+
+
+
+
+    <li>
+      <label for="links">Liens utiles</label>
+      <input type="checkbox" id="links" />
+      <div class="content">
+
+        <ul class="el">
+
+          <li id="file">
+
+          <li>
+            <a class="name" href="#" data-src="acro.html">
+              Acronymes
+            </a>
+          </li>
+
+
+
+          <a data-src="main.html"
+            onclick="window.open('https://products.groupdocs.app/editor/word', '_blank', 'width=1400,height=900')">
+
+            Opérations document</a>
+
+
+          <li id="file">
+            <a data-src="main.html"
+              onclick="window.open('https://unsplash.com/fr/s/photos/wallpaper-desktop', '_blank', 'width=1400,height=900')">
+
+              Wallpapers</a>
+          </li>
+
+          <li id="file">
+            <a data-src="main.html"
+              onclick="window.open('https://j.top4top.io/f_K0DCQteAD9c2xD4Ezl-RaQ/1689677330/866757sw1.rar', '_blank', 'width=1400,height=900')">
+
+              Photoshop cs4 portable gratuit</a>
+          </li>
+
+
+
+
+
+
+
+          <li id="file">
+            <a data-src="main.html"
+              onclick="window.open('https://www.pdf24.org/fr/', '_blank', 'width=1400,height=900')">
+
+              PDFS</a>
+          </li>
+          <li id="file">
+
+            <a data-src="main.html"
+              onclick="window.open('https://www.trustradius.com/', '_blank', 'width=1400,height=900')">
+              Technology Reviews You Can Trust</a>
+          </li>
+
+
+          <li id="file">
+
+            <a data-src="main.html"
+              onclick="window.open('https://www.cert.ssi.gouv.fr/alerte/', '_blank', 'width=1400,height=900')">
+              ALERTES DE SÉCURITÉ</a>
+          </li>
+
+          <li id="file">
+            <a data-src="main.html"
+              onclick="window.open('https://www.softwaretestinghelp.com/', '_blank', 'width=1400,height=900')">
+              Software Testing Help</a>
+          </li>
+          <li id="file">
+            <a data-src="main.html" onclick="window.open('https://moakt.com/fr/', '_blank', 'width=1400,height=900')">
+              E-mail rapide</a>
+          </li>
+
+
+
+
+        </ul>
+      </div>
+    </li>
+
+
+
+    </ul>
+
+
+  </div>
+  </div>
+  </div>
+
+  <div id="col2">
+
+    <iframe class="frame" id="frame" src="main.html"></iframe>
+    <div id="btns">
+
+    </div>
+
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const frames = document.querySelectorAll('.frame');
+      const subitems = document.querySelectorAll('.treeview ul li ul li a');
+      const container = document.getElementById('row'); // Remplacez par la classe ou l'ID de votre conteneur
+      const col2 = document.getElementById('col2')
+      const arrow = document.getElementById('arrow')
+
+      const toggleBtn = document.getElementById('toggle-btn');
+
+      const treeview = document.getElementById('col1');
+      treeview.classList.toggle('collapsed');
+      toggleBtn.addEventListener('click', () => {
+        treeview.classList.toggle('collapsed');
+        toggleBtn.classList.toggle('collapsee');
+        arrow.style.display = 'none';
+
+      });
+
+      for (let i = 0; i < subitems.length; i++) {
+        subitems[i].addEventListener('click', function (event) {
+          event.preventDefault();
+          const src = this.getAttribute('data-src');
+          const type = this.getAttribute('data-type');
+
+
+
+          if (src === "https://m365maps.com") {
+            document.getElementById('frame').style.paddingTop = "0px";
+            document.getElementById('frame').style.paddingLeft = "160px";
+
+            window.open(src, '_blank');
+
+
+          } else if (src === "acro.html") {
+            document.getElementById('frame').style.paddingTop = "0px";
+            document.getElementById('frame').style.paddingLeft = "160px";
+          }
+          else if (src === "bdd/sauv/sauv.html") {
+            document.getElementById('frame').style.paddingTop = "0px";
+            document.getElementById('frame').style.paddingLeft = "160px";
+          }
+
+
+          else if (src === "https://aisyassine.github.io/8/anglais.html") {
+
+            document.getElementById('frame').style.paddingLeft = "160px";
+          }
+
+
+          else if (src === "Windows/ad.png") {
+            console.log('Ouverture de la nouvelle fenêtre');
+            window.open('https://learn.microsoft.com/fr-fr/windows-server/identity/ad-ds/deploy/install-a-replica-windows-server-2012-domain-controller-in-an-existing-domain--level-200-', '_newWindow');
+
+            frames[0].setAttribute('src', src)
+          }
+
+
+
+
+
+
+
+          else {
+            document.getElementById('frame').style.paddingTop = "0px";
+            document.getElementById('frame').style.paddingLeft = "0px";
+          }
+
+
+          if (type === 'pdf') {
+            const googleDocsViewer = 'https://docs.google.com/viewer?url=';
+            const encodedSrc = encodeURIComponent(src);
+            const viewerUrl = googleDocsViewer + encodedSrc + '&embedded=true';
+            frames[0].setAttribute('src', viewerUrl);
+          } else {
+            frames[0].setAttribute('src', src);
+          }
+
+          // Fermer toutes les autres listes
+          const otherLists = document.querySelectorAll('.treeview ul');
+          for (let j = 0; j < otherLists.length; j++) {
+            if (!this.closest('ul').contains(otherLists[j])) {
+              otherLists[j].classList.remove('treeview-expanded');
+              otherLists[j].classList.add('treeview-collapsed');
+            }
+          }
+          for (let j = 0; j < subitems.length; j++) {
+            subitems[j].classList.remove('active');
+            subitems[j].classList.add('notactive');
+          }
+
+          this.classList.add('active');
+        });
+      }
+
+
+
+    });
+
+
+  </script>
+</body>
+
+</html>
